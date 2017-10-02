@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-Description: Two Way TCP Connection Mediator for WSO2 ESB
+Bundle-SymbolicName: TCPConnectionMediator
+Built-By: agaragon
+Bundle-ManifestVersion: 2
+Bnd-LastModified: 1490701017740
+Import-Package: org.apache.commons.logging;resolution:=optional,org.ap
+ ache.synapse;resolution:=optional,org.apache.synapse.mediators;resolu
+ tion:=optional
+Tool: Bnd-1.15.0
+Export-Package: org.wso2.carbon.mediator;uses:="org.apache.synapse.med
+ iators,org.apache.commons.logging,org.apache.synapse"
+Bundle-Version: 1.0.0
+Bundle-Name: TCPConnectionMediator
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.8.0_60
+
