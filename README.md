@@ -8,30 +8,30 @@ exported jar file will be uploaded to repository\components\dropins folder of WS
 This custom proxy can be used for TCP communication on WSO2 
 
 Inputs of mediator is passed by MessageContext.
--	tcpServerIP
+-	tcpServerIP : 
 Target server IP
 
--	tcpServerPort
+-	tcpServerPort : 
 Target server port
 
--	tcpRequestMessage
+-	tcpRequestMessage : 
 Message to send the server
 
--	tcpHasWelcomeMessage
+-	tcpHasWelcomeMessage : 
 Does the server reply your connection request with a welcome message?
 If the server has welcome message then send true, else send false
 
--	tcpWelcomeMessage
+-	tcpWelcomeMessage : 
 If the server has welcome message then pass servers expexted welcome message with this parameter.
 Mediator compares tcpWelcomeMessage with servers welcome message, if they are different then stop the execution.
 
--	tcpHasSpecialEndingMessage
+-	tcpHasSpecialEndingMessage : 
 This parameter is used to understand the end of servers response message. If your server send a special character at then end of its reply, you should send true, else false
 
--	tcpSpecialEndingMessages
+-	tcpSpecialEndingMessages : 
 If the server has special message ending parameter and if you send tcpHasSpecialEndingMessage true then you should send the ending message with this parameter. Mediator waits until see this parameter. You can send ; seperated multiple values.
 
--	tcpResponseMessage
+-	tcpResponseMessage : 
 This is an out parameter. Response of server is set on this property
   
 Sample property values;
