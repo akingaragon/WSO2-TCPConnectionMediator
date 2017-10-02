@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<proxy name="SampleProxyService" startOnLoad="true"
+  trace="disable" transports="http https" xmlns="http://ws.apache.org/ns/synapse">
+  <target>
+    <inSequence>
+      <property expression="//*[local-name()='TRIAL_CHECK_MESSAGE']"
+        name="tcpRequestMessage" scope="default" type="STRING"/>
+      <property expression="//*[local-name()='SERVER_IP']"
+        name="tcpServerIP" scope="default" type="STRING"/>
+      <property expression="//*[local-name()='SERVER_PORT']"
+        name="tcpServerPort" scope="default" type="STRING"/>
+      <property expression="//*[local-name()='HAS_WELCOME_MESSAGE']"
+        name="tcpHasWelcomeMessage" scope="default" type="STRING"/>
+      <property expression="//*[local-name()='WELCOME_MESSAGE']"
+        name="tcpWelcomeMessage" scope="default" type="STRING"/>
+      <property expression="//*[local-name()='HAS_ENDING_MESSAGE']"
+        name="tcpHasSpecialEndingMessage" scope="default" type="STRING"/>
+      <property expression="//*[local-name()='ENDING_MESSAGE']"
+        name="tcpSpecialEndingMessages" scope="default" type="STRING"/>
+      <property name="tcpResponseMessage" scope="default" type="STRING" value=""/>
+      <class name="org.wso2.carbon.mediator.TCPConnectionMediator"/>
+      <log category="DEBUG" level="custom">
+        <property expression="get-property('tcpResponseMessage')" name="TCPServerResponseMessage"/>
+      </log>
+      <enrich>
+        <source clone="true" property="tcpResponseMessage" type="property"/>
+        <target xpath="//ACRRESULT"/>
+      </enrich>
+      <respond/>
+    </inSequence>
+    <outSequence/>
+    <faultSequence/>
+  </target>
+</proxy>
