@@ -18,18 +18,18 @@ Target server port
 Message to send the server
 
 -	tcpHasWelcomeMessage : 
-Does the server reply your connection request with a welcome message?
+Does server reply your connection request with a welcome message?
 If the server has welcome message then send true, else send false
 
 -	tcpWelcomeMessage : 
-If the server has welcome message then pass servers expexted welcome message with this parameter.
+If the server has welcome message then pass servers expected welcome message with this parameter.
 Mediator compares tcpWelcomeMessage with servers welcome message, if they are different then stop the execution.
 
 -	tcpHasSpecialEndingMessage : 
 This parameter is used to understand the end of servers response message. If your server send a special character at then end of its reply, you should send true, else false
 
 -	tcpSpecialEndingMessages : 
-If the server has special message ending parameter and if you send tcpHasSpecialEndingMessage true then you should send the ending message with this parameter. Mediator waits until see this parameter. You can send ; seperated multiple values.
+If the server has special message ending parameter and if you send tcpHasSpecialEndingMessage true then you should send the ending message with this parameter. Mediator waits(reads) until see this parameter. You can send ; seperated multiple values.
 
 -	tcpResponseMessage : 
 This is an out parameter. Response of server is set on this property
