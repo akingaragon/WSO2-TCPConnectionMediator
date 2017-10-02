@@ -46,9 +46,9 @@ public class TCPConnectionMediator extends AbstractMediator {
 				serverResponse = inFromServer.readLine();
 				// compare welcome message
 				if (serverResponse.trim().equals(tcpWelcomeMessage)) {
-					log.debug(tcpServerIP.concat(" üzerinde ").concat(Integer.toString(tcpServerPort)).concat(" portuna baglanti saglandi."));
+					log.debug(tcpServerIP.concat(" - ").concat(Integer.toString(tcpServerPort)).concat(" connected."));
 				} else {
-					String response=tcpServerIP.concat(" üzerinde ").concat(Integer.toString(tcpServerPort)).concat(" portuna baðlantý saðlandý fakat gelen welcome mesajý eþleþmedi!").concat(". Beklenen mesaj : ").concat(tcpWelcomeMessage).concat(" ve gelen mesaj : ").concat(serverResponse.trim());
+					String response=tcpServerIP.concat(" - ").concat(Integer.toString(tcpServerPort)).concat(" connected but welcome message does not exist!").concat(". Waiting welcome message : ").concat(tcpWelcomeMessage).concat(" but received : ").concat(serverResponse.trim());
 					context.setProperty("tcpResponseMessage", response);
 					log.debug(response);
 					return false;
@@ -56,17 +56,16 @@ public class TCPConnectionMediator extends AbstractMediator {
 			}
 
 			if (tcpHasSpecialEndingMessage) {
-				log.debug("tcpHasSpecialEndingMessage a girdi");
 				//if tcp connection has special ending strings, split inout into an array 
 				specialEndingMessages = tcpSpecialEndingMessages.split(",");
 			}
 
 			DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());
 			
-			log.debug("mesaji yollamadan once");
+			log.debug("before sending the message");
 			// send message to tcp port on server
 			outToServer.writeBytes(tcpRequestMessage+'\r'+'\n');
-			log.debug("mesaji yolladi");
+			log.debug("message has been sent");
 			while (!endOfMessage && (serverReadLine = inFromServer.readLine()) != null) {
 				stringBuffer.append(serverReadLine);
 				if (tcpHasSpecialEndingMessage) {
@@ -84,19 +83,19 @@ public class TCPConnectionMediator extends AbstractMediator {
 			return true;
 		} catch (Exception e) {
 			// an error occurred, log error and return false
-			log.error("Hata meydana geldi!\n".concat(e.getMessage()));
-			context.setProperty("tcpResponseMessage","Hata meydana geldi - ".concat(e.getMessage()));
+			log.error("An error occured!\n".concat(e.getMessage()));
+			context.setProperty("tcpResponseMessage","An Error occured - ".concat(e.getMessage()));
 			return false;
 		} finally {
 			if (clientSocket == null) {
-				log.error("Verilen port ve IP'ye baðlantý açýlamadý!clientSocket is null!");
-				context.setProperty("tcpResponseMessage","Verilen port ve IP'ye baðlantý açýlamadý!");
+				log.error("Connection problem!clientSocket is null!");
+				context.setProperty("tcpResponseMessage","Connection problem!");
 			} else if (clientSocket.isConnected()) {
 				try {
 					clientSocket.close();
 				} catch (Exception e2) {
-					log.error("Client Socket kapatýlamadý!\n".concat(e2.getMessage()));
-					context.setProperty("tcpResponseMessage",serverResponse.concat(" - Baðlantý kapatýlamadý!"));
+					log.error("Client Socket close error!\n".concat(e2.getMessage()));
+					context.setProperty("tcpResponseMessage",serverResponse.concat(" - connection can not be closed!"));
 				}
 			}
 
